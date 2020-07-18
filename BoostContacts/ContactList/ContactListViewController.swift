@@ -27,6 +27,5 @@ class ContactListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 }
