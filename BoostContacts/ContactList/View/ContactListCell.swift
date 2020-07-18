@@ -14,7 +14,7 @@ class ContactListCell: UITableViewCell {
 
     @IBOutlet var profileImageView: UIImageView! {
         didSet {
-            profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
+            profileImageView.layer.cornerRadius = profileImageView.bounds.size.height / 2
             profileImageView.backgroundColor = .systemOrange
         }
     }

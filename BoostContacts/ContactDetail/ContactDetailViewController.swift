@@ -8,10 +8,25 @@
 
 import UIKit
 
+enum DetailSection: Int {
+    case header = 0
+    case mainInfo
+    case subInfo
+}
+
 class ContactDetailViewController: UIViewController {
 
     // MARK: - Outlets
 
+    @IBOutlet var tableView: UITableView! {
+        didSet {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.allowsSelection = false
+            tableView.register(UINib(nibName: "ContactPhotoCell", bundle: nil), forCellReuseIdentifier: "ContactPhotoCell")
+            tableView.register(UINib(nibName: "ContactFormCell", bundle: nil), forCellReuseIdentifier: "ContactFormCell")
+        }
+    }
     lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
             title: "Cancel",
@@ -63,5 +78,53 @@ class ContactDetailViewController: UIViewController {
 
     @objc func didTappedSaveButton() {
         // TODO: Save contact
+    }
+}
+
+extension ContactDetailViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch DetailSection(rawValue: section) {
+        case .header:
+            return 1
+        default:
+            return 2
+        }
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch DetailSection(rawValue: indexPath.section) {
+        case .header:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactPhotoCell", for: indexPath) as! ContactPhotoCell
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
+            return cell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch DetailSection(rawValue: section) {
+        case .mainInfo:
+            return "Main Information"
+        case .subInfo:
+            return "Sub Information"
+        default:
+            return nil
+        }
+    }
+}
+
+extension ContactDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch DetailSection(rawValue: indexPath.section) {
+        case .header:
+            return 100
+        default:
+            return 50
+        }
     }
 }
