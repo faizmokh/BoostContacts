@@ -126,13 +126,12 @@ extension ContactDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch DetailSection(rawValue: indexPath.section) {
-        case .header:
+        switch indexPath.section {
+        case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactPhotoCell", for: indexPath) as! ContactPhotoCell
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
-            return cell
+            return UITableViewCell()
         }
     }
 
@@ -152,9 +151,18 @@ extension ContactDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch DetailSection(rawValue: indexPath.section) {
         case .header:
-            return 100
+            return 200
         default:
             return 50
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return CGFloat.leastNonzeroMagnitude
+        default:
+            return 20
         }
     }
 }
