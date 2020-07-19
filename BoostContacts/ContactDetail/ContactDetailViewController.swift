@@ -53,7 +53,7 @@ class ContactDetailViewController: UIViewController {
 
     // MARK: - Inits
 
-    init(viewModel: ContactDetailViewModel = ContactDetailViewModel()) {
+    init(viewModel: ContactDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
