@@ -7,7 +7,21 @@
 //
 
 import Foundation
+import Combine
 
-class ContactListViewModel {
-    
+class ContactListViewModel: ObservableObject {
+
+    @Published var contacts: [Contact]
+
+    let repository: ContactsRepositorable
+
+    init(repository: ContactsRepositorable = ContactsRepository(),
+         contacts: [Contact] = []) {
+        self.repository = repository
+        self.contacts = contacts
+    }
+
+    func getAllContacts() {
+        self.contacts = repository.getAllContacts()
+    }
 }

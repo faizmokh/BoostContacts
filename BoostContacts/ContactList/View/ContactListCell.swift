@@ -9,7 +9,9 @@
 import UIKit
 
 class ContactListCell: UITableViewCell {
-    
+
+    // MARK: - Outlets
+
     @IBOutlet var profileImageView: UIImageView! {
         didSet {
             profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
@@ -21,5 +23,11 @@ class ContactListCell: UITableViewCell {
         didSet {
             nameLabel.font = .preferredFont(forTextStyle: .body)
         }
+    }
+
+    // MARK: - Methods
+
+    func setup(contact: Contact) {
+        nameLabel.text = "\(contact.firstName) \(contact.lastName)"
     }
 }
