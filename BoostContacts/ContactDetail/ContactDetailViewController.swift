@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 enum DetailSection: Int {
     case header = 0
@@ -51,6 +52,8 @@ class ContactDetailViewController: UIViewController {
 
     let viewModel: ContactDetailViewModel
 
+    private var bindings = Set<AnyCancellable>()
+
     // MARK: - Inits
 
     init(viewModel: ContactDetailViewModel) {
@@ -67,6 +70,7 @@ class ContactDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBindings()
     }
 
     // MARK: - Actions
@@ -93,6 +97,15 @@ class ContactDetailViewController: UIViewController {
             self, selector: #selector(adjustForKeyboard),
             name: UIResponder.keyboardWillChangeFrameNotification,
             object: nil)
+    }
+
+    private func setupBindings() {
+        viewModel.$contact
+            .receive(on: RunLoop.main)
+            .sink { contact in
+                self.tableView.reloadData()
+            }
+            .store(in: &bindings)
     }
 
     @objc private func adjustForKeyboard(notification: Notification) {
@@ -133,12 +146,12 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .mainInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "First Name", value: "Faiz")
+                cell.setup(title: "First Name", value: viewModel.firstName)
                 cell.valueCompletion = { [weak self] text in
                     print(text)
                 }
             } else {
-                cell.setup(title: "Last Name", value: "Mokhtar")
+                cell.setup(title: "Last Name", value: viewModel.lastName)
                 cell.valueCompletion = { [weak self] text in
                     print(text)
                 }
@@ -147,12 +160,12 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .subInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "Email", value: "mfmokhtar@gmail.com")
+                cell.setup(title: "Email", value: viewModel.email)
                 cell.valueCompletion = { [weak self] text in
                     print(text)
                 }
             } else {
-                cell.setup(title: "Phone", value: "(601) 0163359575")
+                cell.setup(title: "Phone", value: viewModel.phone)
                 cell.valueCompletion = { [weak self] text in
                     print(text)
                 }

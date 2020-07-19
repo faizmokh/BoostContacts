@@ -15,7 +15,7 @@ class ContactFormCell: UITableViewCell {
 
     var valueCompletion: ((String?) -> Void)?
 
-    func setup(title: String, value: String) {
+    func setup(title: String, value: String?) {
         self.titleLabel.text = title
         self.formTextField.text = value
     }
