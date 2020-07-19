@@ -80,7 +80,7 @@ class ContactDetailViewController: UIViewController {
     }
 
     @objc func didTappedSaveButton() {
-        // TODO: Save contact
+        viewModel.save()
     }
 
     // MARK: - Privates
@@ -124,6 +124,8 @@ class ContactDetailViewController: UIViewController {
     }
 }
 
+// MARK: - ContactDetailViewController Data Sources
+
 extension ContactDetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -148,12 +150,12 @@ extension ContactDetailViewController: UITableViewDataSource {
             if indexPath.row == 0 {
                 cell.setup(title: "First Name", value: viewModel.firstName)
                 cell.valueCompletion = { [weak self] text in
-                    print(text)
+                    self?.viewModel.firstName = text
                 }
             } else {
                 cell.setup(title: "Last Name", value: viewModel.lastName)
                 cell.valueCompletion = { [weak self] text in
-                    print(text)
+                    self?.viewModel.lastName = text
                 }
             }
             return cell
@@ -162,12 +164,12 @@ extension ContactDetailViewController: UITableViewDataSource {
             if indexPath.row == 0 {
                 cell.setup(title: "Email", value: viewModel.email)
                 cell.valueCompletion = { [weak self] text in
-                    print(text)
+                    self?.viewModel.email = text
                 }
             } else {
                 cell.setup(title: "Phone", value: viewModel.phone)
                 cell.valueCompletion = { [weak self] text in
-                    print(text)
+                    self?.viewModel.phone = text
                 }
             }
             return cell
@@ -187,6 +189,8 @@ extension ContactDetailViewController: UITableViewDataSource {
         }
     }
 }
+
+// MARK: - ContactDetailViewController Delegates
 
 extension ContactDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
