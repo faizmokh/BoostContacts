@@ -33,8 +33,12 @@ class ContactsRepository: ContactsRepositorable {
     }
 
     func getAllContacts() -> [Contact] {
+        let from = Bundle.main.url(forResource: "data", withExtension: "json")!
         let filepath = path.appendingPathComponent("data.json")
         do {
+            if !FileManager.default.fileExists(atPath: filepath.path) {
+                try FileManager.default.copyItem(at: from, to: filepath)
+            }
             let data = try Data(contentsOf: filepath)
             let contacts = try decoder.decode([Contact].self, from: data)
             return contacts

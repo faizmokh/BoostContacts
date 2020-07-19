@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class ContactListViewController: UIViewController {
 
@@ -33,7 +34,9 @@ class ContactListViewController: UIViewController {
 
     // MARK: - Properties
 
-    let viewModel: ContactListViewModel
+    private let viewModel: ContactListViewModel
+
+    private var bindings = Set<AnyCancellable>()
 
     // MARK: - Inits
 
@@ -52,6 +55,7 @@ class ContactListViewController: UIViewController {
         super.viewDidLoad()
         title = "Contacts"
         self.navigationItem.rightBarButtonItem = addButton
+        viewModel.getAllContacts()
     }
 
     // MARK: - Actions
@@ -59,17 +63,30 @@ class ContactListViewController: UIViewController {
     @objc func didTappedAddButton() {
         // TODO: Navigate to add screen
     }
+
+    // MARK: - Methods
+
+    private func setupBindings() {
+        viewModel.$contacts
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { _ in
+                self.tableView.reloadInputViews()
+            })
+            .store(in: &bindings)
+    }
 }
 
 // MARK: - ContactListViewController Data Sources
 
 extension ContactListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return viewModel.contacts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactListCell", for: indexPath) as! ContactListCell
+        let contact = viewModel.contacts[indexPath.row]
+        cell.setup(contact: contact)
         return cell
     }
 }
