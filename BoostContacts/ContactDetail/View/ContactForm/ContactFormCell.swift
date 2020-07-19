@@ -13,4 +13,19 @@ class ContactFormCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var formTextField: UITextField!
 
+    var valueCompletion: ((String?) -> Void)?
+
+    func setup(title: String, value: String) {
+        self.titleLabel.text = title
+        self.formTextField.text = value
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.formTextField.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+    }
+
+    @objc func textFieldDidChanged(_ textField: UITextField) {
+        self.valueCompletion?(textField.text)
+    }
 }

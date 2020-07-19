@@ -126,11 +126,39 @@ extension ContactDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
+        switch DetailSection(rawValue: indexPath.section) {
+        case .header:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactPhotoCell", for: indexPath) as! ContactPhotoCell
             return cell
-        default:
+        case .mainInfo:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
+            if indexPath.row == 0 {
+                cell.setup(title: "First Name", value: "Faiz")
+                cell.valueCompletion = { [weak self] text in
+                    print(text)
+                }
+            } else {
+                cell.setup(title: "Last Name", value: "Mokhtar")
+                cell.valueCompletion = { [weak self] text in
+                    print(text)
+                }
+            }
+            return cell
+        case .subInfo:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
+            if indexPath.row == 0 {
+                cell.setup(title: "Email", value: "mfmokhtar@gmail.com")
+                cell.valueCompletion = { [weak self] text in
+                    print(text)
+                }
+            } else {
+                cell.setup(title: "Phone", value: "(601) 0163359575")
+                cell.valueCompletion = { [weak self] text in
+                    print(text)
+                }
+            }
+            return cell
+        case .none:
             return UITableViewCell()
         }
     }
@@ -153,7 +181,7 @@ extension ContactDetailViewController: UITableViewDelegate {
         case .header:
             return 200
         default:
-            return 50
+            return 60
         }
     }
 
