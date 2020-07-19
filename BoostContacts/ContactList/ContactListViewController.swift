@@ -32,6 +32,13 @@ class ContactListViewController: UIViewController {
         return button
     }()
 
+    lazy var refreshControl: UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        control.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
+        return control
+    }()
+
     // MARK: - Properties
 
     private let viewModel: ContactListViewModel
@@ -55,6 +62,7 @@ class ContactListViewController: UIViewController {
         super.viewDidLoad()
         title = "Contacts"
         self.navigationItem.rightBarButtonItem = addButton
+        self.tableView.addSubview(refreshControl)
         viewModel.getAllContacts()
     }
 
@@ -62,6 +70,11 @@ class ContactListViewController: UIViewController {
 
     @objc func didTappedAddButton() {
         // TODO: Navigate to add screen
+    }
+
+    @objc func didPullToRefresh() {
+        viewModel.getAllContacts()
+        refreshControl.endRefreshing()
     }
 
     // MARK: - Methods
