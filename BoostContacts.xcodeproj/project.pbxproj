@@ -18,6 +18,7 @@
 		98630D3824C2F80100957059 /* ContactListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98630D3724C2F80100957059 /* ContactListViewModel.swift */; };
 		98630D3B24C2F85900957059 /* ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98630D3924C2F85900957059 /* ContactListViewController.swift */; };
 		98630D3C24C2F85900957059 /* ContactListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98630D3A24C2F85900957059 /* ContactListViewController.xib */; };
+		98A3ECB924C47E5D000CC534 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 98A3ECB824C47E5D000CC534 /* data.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		98630D3724C2F80100957059 /* ContactListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewModel.swift; sourceTree = "<group>"; };
 		98630D3924C2F85900957059 /* ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewController.swift; sourceTree = "<group>"; };
 		98630D3A24C2F85900957059 /* ContactListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactListViewController.xib; sourceTree = "<group>"; };
+		98A3ECB824C47E5D000CC534 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,8 +119,7 @@
 				98630D3424C2F7DB00957059 /* ContactList */,
 				98630D0424C2F4FE00957059 /* AppDelegate.swift */,
 				98630D0624C2F4FE00957059 /* SceneDelegate.swift */,
-				98630D0D24C2F4FE00957059 /* Assets.xcassets */,
-				98630D0F24C2F4FE00957059 /* LaunchScreen.storyboard */,
+				98A3ECB724C47E39000CC534 /* Resources */,
 				98630D1224C2F4FE00957059 /* Info.plist */,
 			);
 			path = BoostContacts;
@@ -159,6 +160,16 @@
 				98630D3724C2F80100957059 /* ContactListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		98A3ECB724C47E39000CC534 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98630D0D24C2F4FE00957059 /* Assets.xcassets */,
+				98630D0F24C2F4FE00957059 /* LaunchScreen.storyboard */,
+				98A3ECB824C47E5D000CC534 /* data.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +279,7 @@
 				9838C3D224C3396800311621 /* ContactListCell.xib in Resources */,
 				98630D1124C2F4FE00957059 /* LaunchScreen.storyboard in Resources */,
 				98630D3C24C2F85900957059 /* ContactListViewController.xib in Resources */,
+				98A3ECB924C47E5D000CC534 /* data.json in Resources */,
 				98630D0E24C2F4FE00957059 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
