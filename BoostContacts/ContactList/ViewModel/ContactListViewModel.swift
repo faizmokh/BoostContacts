@@ -9,5 +9,10 @@
 import Foundation
 
 class ContactListViewModel {
-    
+
+    let repository: ContactsRepositorable
+
+    init(repository: ContactsRepositorable = ContactsRepository()) {
+        self.repository = repository
+    }
 }
