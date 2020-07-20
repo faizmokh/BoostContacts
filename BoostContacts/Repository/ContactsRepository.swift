@@ -30,23 +30,11 @@ class ContactsRepository: ContactsRepositorable {
         self.contacts = contacts
         self.filepath = filepath
         self.decoder = decoder
-        
+        self.loadContacts()
     }
 
     func getAllContacts() -> [Contact] {
-        let from = Bundle.main.url(forResource: "data", withExtension: "json")!
-        do {
-            if !FileManager.default.fileExists(atPath: filepath.path) {
-                try FileManager.default.copyItem(at: from, to: filepath)
-            }
-            let data = try Data(contentsOf: filepath)
-            let contacts = try decoder.decode([Contact].self, from: data)
-            self.contacts = contacts
-            return contacts
-        } catch {
-            print(error)
-            return []
-        }
+        return contacts
     }
 
     func update(contact: Contact) {
@@ -57,6 +45,20 @@ class ContactsRepository: ContactsRepositorable {
         do {
             let data = try JSONSerialization.data(withJSONObject: contacts, options: .prettyPrinted)
             try data.write(to: filepath, options: [])
+        } catch {
+            print(error)
+        }
+    }
+
+    func loadContacts() {
+        let from = Bundle.main.url(forResource: "data", withExtension: "json")!
+        do {
+            if !FileManager.default.fileExists(atPath: filepath.path) {
+                try FileManager.default.copyItem(at: from, to: filepath)
+            }
+            let data = try Data(contentsOf: filepath)
+            let contacts = try decoder.decode([Contact].self, from: data)
+            self.contacts = contacts
         } catch {
             print(error)
         }
