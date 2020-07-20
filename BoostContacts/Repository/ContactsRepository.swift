@@ -18,18 +18,15 @@ protocol ContactsRepositorable {
 class ContactsRepository: ContactsRepositorable {
 
     private let filepath: URL
-    private let decoder: JSONDecoder
 
     private var contacts: [Contact]
 
     init(
         contacts: [Contact] = [],
-        filepath: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("data.json"),
-        decoder: JSONDecoder = JSONDecoder()
+        filepath: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("data.json")
     ) {
         self.contacts = contacts
         self.filepath = filepath
-        self.decoder = decoder
         self.loadContacts()
     }
 
@@ -43,7 +40,9 @@ class ContactsRepository: ContactsRepositorable {
         }
 
         do {
-            let data = try JSONSerialization.data(withJSONObject: contacts, options: .prettyPrinted)
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(contacts)
             try data.write(to: filepath, options: [])
         } catch {
             print(error)
@@ -57,7 +56,7 @@ class ContactsRepository: ContactsRepositorable {
                 try FileManager.default.copyItem(at: from, to: filepath)
             }
             let data = try Data(contentsOf: filepath)
-            let contacts = try decoder.decode([Contact].self, from: data)
+            let contacts = try JSONDecoder().decode([Contact].self, from: data)
             self.contacts = contacts
         } catch {
             print(error)
