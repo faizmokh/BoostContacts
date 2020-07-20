@@ -12,42 +12,54 @@ protocol ContactsRepositorable {
     /// Get all contacts
     func getAllContacts() -> [Contact]
     /// Update a contact
-    func update(contact: Contact) -> Contact
+    func update(contact: Contact)
 }
 
 class ContactsRepository: ContactsRepositorable {
 
-    private let path: URL
-    private let decoder: JSONDecoder
+    private let filepath: URL
 
     private var contacts: [Contact]
 
     init(
         contacts: [Contact] = [],
-        path: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0],
-        decoder: JSONDecoder = JSONDecoder()
+        filepath: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("data.json")
     ) {
         self.contacts = contacts
-        self.path = path
-        self.decoder = decoder
+        self.filepath = filepath
+        self.loadContacts()
     }
 
     func getAllContacts() -> [Contact] {
+        return contacts
+    }
+
+    func update(contact: Contact) {
+        if let row = self.contacts.firstIndex(where: { $0.id == contact.id }) {
+            contacts[row] = contact
+        }
+
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(contacts)
+            try data.write(to: filepath, options: [])
+        } catch {
+            print(error)
+        }
+    }
+
+    func loadContacts() {
         let from = Bundle.main.url(forResource: "data", withExtension: "json")!
-        let filepath = path.appendingPathComponent("data.json")
         do {
             if !FileManager.default.fileExists(atPath: filepath.path) {
                 try FileManager.default.copyItem(at: from, to: filepath)
             }
             let data = try Data(contentsOf: filepath)
-            let contacts = try decoder.decode([Contact].self, from: data)
-            return contacts
+            let contacts = try JSONDecoder().decode([Contact].self, from: data)
+            self.contacts = contacts
         } catch {
-            return []
+            print(error)
         }
-    }
-
-    func update(contact: Contact) -> Contact {
-        return contact
     }
 }
