@@ -103,27 +103,27 @@ class ContactDetailViewController: UIViewController {
 
     private func setupBindings() {
         viewModel.$contact
-            .receive(on: RunLoop.main)
-            .sink { contact in
-                self.tableView.reloadData()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] contact in
+                self?.tableView.reloadData()
             }
             .store(in: &bindings)
         viewModel.$isShowAlert
-            .receive(on: RunLoop.main)
-            .sink { isAlertShown in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAlertShown in
                 if isAlertShown {
-                    self.showAlert()
+                    self?.showAlert()
                 }
             }
             .store(in: &bindings)
         viewModel.$isDismissScreen
-            .receive(on: RunLoop.main)
-            .sink { isDismissed in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isDismissed in
                 if isDismissed {
-                    self.dismissScreen()
+                    self?.dismissScreen()
                 }
-        }
-        .store(in: &bindings)
+            }
+            .store(in: &bindings)
     }
 
     @objc private func adjustForKeyboard(notification: Notification) {
@@ -154,6 +154,13 @@ class ContactDetailViewController: UIViewController {
         self.presentationController?.delegate?.presentationControllerDidDismiss?(self.presentationController!)
         self.dismiss(animated: true, completion: nil)
     }
+
+    private func setup(cell: ContactFormCell, title: String, value: String?, tag: Int) {
+        cell.setup(title: title, value: value)
+        cell.formTextField.delegate = self
+        cell.formTextField.returnKeyType = .next
+        cell.formTextField.tag = tag
+    }
 }
 
 // MARK: - ContactDetailViewController Data Sources
@@ -180,12 +187,12 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .mainInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "First Name", value: viewModel.firstName)
+                setup(cell: cell, title: "First Name", value: viewModel.firstName, tag: 0)
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.firstName = text
                 }
             } else {
-                cell.setup(title: "Last Name", value: viewModel.lastName)
+                setup(cell: cell, title: "Last Name", value: viewModel.lastName, tag: 1)
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.lastName = text
                 }
@@ -194,12 +201,14 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .subInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "Email", value: viewModel.email)
+                setup(cell: cell, title: "Email", value: viewModel.email, tag: 2)
+                cell.formTextField.keyboardType = .emailAddress
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.email = text
                 }
             } else {
-                cell.setup(title: "Phone", value: viewModel.phone)
+                setup(cell: cell, title: "Phone", value: viewModel.phone, tag: 3)
+                cell.formTextField.keyboardType = .namePhonePad
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.phone = text
                 }
@@ -241,5 +250,16 @@ extension ContactDetailViewController: UITableViewDelegate {
         default:
             return 20
         }
+    }
+}
+
+extension ContactDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return false
     }
 }
