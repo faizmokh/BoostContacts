@@ -106,6 +106,22 @@ class ContactDetailViewController: UIViewController {
                 self.tableView.reloadData()
             }
             .store(in: &bindings)
+        viewModel.$isShowAlert
+            .receive(on: RunLoop.main)
+            .sink { isAlertShown in
+                if isAlertShown {
+                    self.showAlert()
+                }
+            }
+            .store(in: &bindings)
+        viewModel.$isDismissScreen
+            .receive(on: RunLoop.main)
+            .sink { isDismissed in
+                if isDismissed {
+                    self.dismissScreen()
+                }
+        }
+        .store(in: &bindings)
     }
 
     @objc private func adjustForKeyboard(notification: Notification) {
@@ -121,6 +137,19 @@ class ContactDetailViewController: UIViewController {
         }
 
         tableView.scrollIndicatorInsets = tableView.contentInset
+    }
+
+    private func showAlert() {
+        let alert = UIAlertController(
+            title: "Missing required fields",
+            message: "First Name and Last Name need to be filled in",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    private func dismissScreen() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

@@ -64,6 +64,7 @@ class ContactListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addButton
         self.tableView.addSubview(refreshControl)
         viewModel.getAllContacts()
+        setupBindings()
     }
 
     // MARK: - Actions
@@ -83,7 +84,7 @@ class ContactListViewController: UIViewController {
         viewModel.$contacts
             .receive(on: RunLoop.main)
             .sink(receiveValue: { _ in
-                self.tableView.reloadInputViews()
+                self.tableView.reloadData()
             })
             .store(in: &bindings)
     }
