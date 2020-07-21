@@ -27,10 +27,19 @@ class ContactsRepository: ContactsRepositorable {
     ) {
         self.contacts = contacts
         self.filepath = filepath
-        self.loadContacts()
+        do {
+            self.contacts = try loadContacts()
+        } catch { error
+            print(error.localizedDescription)
+        }
     }
 
     func getAllContacts() -> [Contact] {
+        do {
+            contacts = try loadContacts()
+        } catch {
+            print(error)
+        }
         return contacts
     }
 
@@ -49,17 +58,13 @@ class ContactsRepository: ContactsRepositorable {
         }
     }
 
-    func loadContacts() {
+    func loadContacts() throws -> [Contact] {
         let from = Bundle.main.url(forResource: "data", withExtension: "json")!
-        do {
-            if !FileManager.default.fileExists(atPath: filepath.path) {
-                try FileManager.default.copyItem(at: from, to: filepath)
-            }
-            let data = try Data(contentsOf: filepath)
-            let contacts = try JSONDecoder().decode([Contact].self, from: data)
-            self.contacts = contacts
-        } catch {
-            print(error)
+        if !FileManager.default.fileExists(atPath: filepath.path) {
+            try FileManager.default.copyItem(at: from, to: filepath)
         }
+        let data = try Data(contentsOf: filepath)
+        let contacts = try JSONDecoder().decode([Contact].self, from: data)
+        return contacts
     }
 }
