@@ -14,6 +14,9 @@ class ContactDetailViewModel: ObservableObject {
 
     @Published var contact: Contact
 
+    @Published var isShowAlert: Bool = false
+    @Published var isDismissScreen: Bool = false
+
     let repository: ContactsRepositorable
 
     var firstName: String?
@@ -34,8 +37,13 @@ class ContactDetailViewModel: ObservableObject {
     }
 
     func save() {
-        guard let firstName = firstName, let lastName = lastName else { return }
+        guard let firstName = firstName, !firstName.isEmpty,
+            let lastName = lastName, !lastName.isEmpty else {
+            self.isShowAlert = true
+            return
+        }
         let newContact = Contact(id: contact.id, firstName: firstName, lastName: lastName, email: email, phone: phone)
         repository.update(contact: newContact)
+        isDismissScreen = true
     }
 }
