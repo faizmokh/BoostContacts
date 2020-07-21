@@ -64,6 +64,7 @@ class ContactListViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = addButton
         self.tableView.addSubview(refreshControl)
         viewModel.getAllContacts()
+        setupBindings()
     }
 
     // MARK: - Actions
