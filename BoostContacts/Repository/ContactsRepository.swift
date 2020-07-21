@@ -46,6 +46,9 @@ class ContactsRepository: ContactsRepositorable {
     func update(contact: Contact) {
         if let row = self.contacts.firstIndex(where: { $0.id == contact.id }) {
             contacts[row] = contact
+        } else {
+            let contact = make(contact: contact)
+            self.contacts.append(contact)
         }
 
         do {
@@ -58,7 +61,7 @@ class ContactsRepository: ContactsRepositorable {
         }
     }
 
-    func loadContacts() throws -> [Contact] {
+    private func loadContacts() throws -> [Contact] {
         let from = Bundle.main.url(forResource: "data", withExtension: "json")!
         if !FileManager.default.fileExists(atPath: filepath.path) {
             try FileManager.default.copyItem(at: from, to: filepath)
@@ -66,5 +69,15 @@ class ContactsRepository: ContactsRepositorable {
         let data = try Data(contentsOf: filepath)
         let contacts = try JSONDecoder().decode([Contact].self, from: data)
         return contacts
+    }
+
+    private func make(contact: Contact) -> Contact {
+        return Contact(
+            id: UUID().uuidString,
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            email: contact.email,
+            phone: contact.phone
+        )
     }
 }

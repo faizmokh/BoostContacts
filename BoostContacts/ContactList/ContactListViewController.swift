@@ -70,7 +70,10 @@ class ContactListViewController: UIViewController {
     // MARK: - Actions
 
     @objc func didTappedAddButton() {
-        // TODO: Navigate to add screen
+        let viewModel = ContactDetailViewModel()
+        let controller = ContactDetailViewController(viewModel: viewModel)
+        let navigation = UINavigationController(rootViewController: controller)
+        self.present(navigation, animated: true, completion: nil)
     }
 
     @objc func didPullToRefresh() {
