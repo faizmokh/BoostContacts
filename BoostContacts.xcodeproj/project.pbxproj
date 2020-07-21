@@ -32,6 +32,8 @@
 		98C99FB424C7225E007674DA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C99FB324C7225E007674DA /* UIColor+Extensions.swift */; };
 		98D5BE6F24C759470014592B /* ContactDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE6E24C759470014592B /* ContactDetailViewModelTests.swift */; };
 		98D5BE7124C75D190014592B /* ContactListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE7024C75D190014592B /* ContactListViewModelTests.swift */; };
+		98D5BE7324C762E00014592B /* ContactListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE7224C762E00014592B /* ContactListViewControllerTests.swift */; };
+		98D5BE7624C765CD0014592B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE7524C765CD0014592B /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		98C99FB324C7225E007674DA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		98D5BE6E24C759470014592B /* ContactDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewModelTests.swift; sourceTree = "<group>"; };
 		98D5BE7024C75D190014592B /* ContactListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewModelTests.swift; sourceTree = "<group>"; };
+		98D5BE7224C762E00014592B /* ContactListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewControllerTests.swift; sourceTree = "<group>"; };
+		98D5BE7524C765CD0014592B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +209,7 @@
 		98630D1A24C2F4FF00957059 /* BoostContactsTests */ = {
 			isa = PBXGroup;
 			children = (
+				98D5BE7424C765B60014592B /* TestHelpers */,
 				98630D1B24C2F4FF00957059 /* BoostContactsTests.swift */,
 				98630D1D24C2F4FF00957059 /* Info.plist */,
 			);
@@ -226,6 +231,7 @@
 				9838C3CE24C3392900311621 /* View */,
 				98630D3D24C2F86000957059 /* ViewModel */,
 				98630D3924C2F85900957059 /* ContactListViewController.swift */,
+				98D5BE7224C762E00014592B /* ContactListViewControllerTests.swift */,
 				98630D3A24C2F85900957059 /* ContactListViewController.xib */,
 			);
 			path = ContactList;
@@ -273,6 +279,14 @@
 				98C99FB324C7225E007674DA /* UIColor+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		98D5BE7424C765B60014592B /* TestHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				98D5BE7524C765CD0014592B /* Helpers.swift */,
+			);
+			path = TestHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,7 +445,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				98D5BE6F24C759470014592B /* ContactDetailViewModelTests.swift in Sources */,
+				98D5BE7624C765CD0014592B /* Helpers.swift in Sources */,
 				98D5BE7124C75D190014592B /* ContactListViewModelTests.swift in Sources */,
+				98D5BE7324C762E00014592B /* ContactListViewControllerTests.swift in Sources */,
 				98A3ECBE24C480EC000CC534 /* ContactTests.swift in Sources */,
 				98630D1C24C2F4FF00957059 /* BoostContactsTests.swift in Sources */,
 			);

@@ -36,8 +36,8 @@ class ContactListViewModelTests: XCTestCase {
 
     func testContactListViewModel_givenRepositoryIsReturningContacts_PublishedContactsShouldBeTheSame() {
         let contacts = [
-            makeContact(firstName: "tom", lastName: "riddle"),
-            makeContact(firstName: "harry", lastName: "potter")
+            Helpers.makeContact(firstName: "tom", lastName: "riddle"),
+            Helpers.makeContact(firstName: "harry", lastName: "potter")
         ]
         let repository = ContactRepositorySpy(getAllContactsResponse: contacts)
         let sut = ContactListViewModel(repository: repository)
@@ -73,10 +73,5 @@ class ContactListViewModelTests: XCTestCase {
         func update(contact: Contact) {
             isUpdateCalled = true
         }
-    }
-
-    private func makeContact(firstName: String, lastName: String, id: String? = nil,
-                             email: String? = nil, phone: String? = nil) -> Contact {
-        return Contact(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone)
     }
 }
