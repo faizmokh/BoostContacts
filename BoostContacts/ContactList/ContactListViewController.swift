@@ -123,6 +123,8 @@ extension ContactListViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UIAdaptivePresentationController Delegates
+
 extension ContactListViewController: UIAdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         viewModel.getAllContacts()

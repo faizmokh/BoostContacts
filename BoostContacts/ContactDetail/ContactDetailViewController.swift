@@ -181,11 +181,17 @@ extension ContactDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
                 cell.setup(title: "First Name", value: viewModel.firstName)
+                cell.formTextField.delegate = self
+                cell.formTextField.returnKeyType = .next
+                cell.formTextField.tag = 0
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.firstName = text
                 }
             } else {
                 cell.setup(title: "Last Name", value: viewModel.lastName)
+                cell.formTextField.delegate = self
+                cell.formTextField.returnKeyType = .next
+                cell.formTextField.tag = 1
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.lastName = text
                 }
@@ -195,11 +201,17 @@ extension ContactDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
                 cell.setup(title: "Email", value: viewModel.email)
+                cell.formTextField.delegate = self
+                cell.formTextField.returnKeyType = .next
+                cell.formTextField.tag = 2
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.email = text
                 }
             } else {
                 cell.setup(title: "Phone", value: viewModel.phone)
+                cell.formTextField.delegate = self
+                cell.formTextField.returnKeyType = .next
+                cell.formTextField.tag = 3
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.phone = text
                 }
@@ -241,5 +253,16 @@ extension ContactDetailViewController: UITableViewDelegate {
         default:
             return 20
         }
+    }
+}
+
+extension ContactDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextField = self.view.viewWithTag(textField.tag + 1) as? UITextField {
+            nextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+        return false
     }
 }
