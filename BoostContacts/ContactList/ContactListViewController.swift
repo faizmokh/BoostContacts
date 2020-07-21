@@ -84,7 +84,7 @@ class ContactListViewController: UIViewController {
         viewModel.$contacts
             .receive(on: RunLoop.main)
             .sink(receiveValue: { _ in
-                self.tableView.reloadInputViews()
+                self.tableView.reloadData()
             })
             .store(in: &bindings)
     }
