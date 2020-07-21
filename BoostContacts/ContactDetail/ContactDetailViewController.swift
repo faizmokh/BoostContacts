@@ -76,6 +76,7 @@ class ContactDetailViewController: UIViewController {
     // MARK: - Actions
 
     @objc func didTappedCancelButton() {
+        self.presentationController?.delegate?.presentationControllerDidDismiss?(self.presentationController!)
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -86,6 +87,7 @@ class ContactDetailViewController: UIViewController {
     // MARK: - Privates
 
     private func setupUI() {
+        isModalInPresentation = true
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = saveButton
         let notificationCenter = NotificationCenter.default
@@ -149,6 +151,7 @@ class ContactDetailViewController: UIViewController {
     }
 
     private func dismissScreen() {
+        self.presentationController?.delegate?.presentationControllerDidDismiss?(self.presentationController!)
         self.dismiss(animated: true, completion: nil)
     }
 }

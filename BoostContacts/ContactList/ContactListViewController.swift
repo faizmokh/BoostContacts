@@ -72,6 +72,7 @@ class ContactListViewController: UIViewController {
     @objc func didTappedAddButton() {
         let viewModel = ContactDetailViewModel()
         let controller = ContactDetailViewController(viewModel: viewModel)
+        controller.presentationController?.delegate = self
         let navigation = UINavigationController(rootViewController: controller)
         self.present(navigation, animated: true, completion: nil)
     }
@@ -116,7 +117,14 @@ extension ContactListViewController: UITableViewDelegate {
         let contact = viewModel.contacts[indexPath.row]
         let viewModel = ContactDetailViewModel(contact: contact)
         let controller = ContactDetailViewController(viewModel: viewModel)
+        controller.presentationController?.delegate = self
         let navigation = UINavigationController(rootViewController: controller)
         self.present(navigation, animated: true, completion: nil)
+    }
+}
+
+extension ContactListViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        viewModel.getAllContacts()
     }
 }
