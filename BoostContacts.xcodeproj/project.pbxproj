@@ -31,6 +31,7 @@
 		98A3ECC024C48684000CC534 /* ContactsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A3ECBF24C48684000CC534 /* ContactsRepository.swift */; };
 		98C99FB424C7225E007674DA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C99FB324C7225E007674DA /* UIColor+Extensions.swift */; };
 		98D5BE6F24C759470014592B /* ContactDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE6E24C759470014592B /* ContactDetailViewModelTests.swift */; };
+		98D5BE7124C75D190014592B /* ContactListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D5BE7024C75D190014592B /* ContactListViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		98A3ECBF24C48684000CC534 /* ContactsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsRepository.swift; sourceTree = "<group>"; };
 		98C99FB324C7225E007674DA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		98D5BE6E24C759470014592B /* ContactDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailViewModelTests.swift; sourceTree = "<group>"; };
+		98D5BE7024C75D190014592B /* ContactListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				98630D3724C2F80100957059 /* ContactListViewModel.swift */,
+				98D5BE7024C75D190014592B /* ContactListViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98D5BE6F24C759470014592B /* ContactDetailViewModelTests.swift in Sources */,
+				98D5BE7124C75D190014592B /* ContactListViewModelTests.swift in Sources */,
 				98A3ECBE24C480EC000CC534 /* ContactTests.swift in Sources */,
 				98630D1C24C2F4FF00957059 /* BoostContactsTests.swift in Sources */,
 			);

@@ -23,7 +23,7 @@ class ContactDetailViewModelTests: XCTestCase {
         super.tearDown()
     }
 
-    func testContactDetailViewModel_givenAllFieldsAreMissing_OnSave_ItShouldNotBeAbleToUpdateContact() {
+    func testContactDetailViewModel_givenAllFieldsAreMissing_onSave_itShouldNotBeAbleToUpdateContact() {
         let contact = Contact(id: nil, firstName: "", lastName: "", email: nil, phone: nil)
         let sut = ContactDetailViewModel(contact: contact, repository: repositorySpy)
 
@@ -32,7 +32,7 @@ class ContactDetailViewModelTests: XCTestCase {
         XCTAssertFalse(repositorySpy.isUpdateCalled, "it should not be able to update contact")
     }
 
-    func testContactDetailViewModel_givenFirstNameLastNameEmpty_OnSave_ItShouldBeAbleToUpdate() {
+    func testContactDetailViewModel_givenFirstNameLastNameEmpty_onSave_itShouldBeAbleToUpdate() {
         let contact = Contact(id: nil, firstName: "tom", lastName: "riddle", email: nil, phone: nil)
         let sut = ContactDetailViewModel(contact: contact, repository: repositorySpy)
 
@@ -41,7 +41,7 @@ class ContactDetailViewModelTests: XCTestCase {
         XCTAssertTrue(repositorySpy.isUpdateCalled, "it should be able to update contact")
     }
 
-    func testContactDetailViewModel_givenFirstNameLastNameEmpty_OnSave_ItShouldNotBeAbleToUpdate() {
+    func testContactDetailViewModel_givenFirstNameLastNameEmpty_onSave_itShouldNotBeAbleToUpdate() {
         let contact = Contact(id: nil, firstName: "tom", lastName: "", email: "tom@hogwarts.com", phone: nil)
         let sut = ContactDetailViewModel(contact: contact, repository: repositorySpy)
 
@@ -50,7 +50,7 @@ class ContactDetailViewModelTests: XCTestCase {
         XCTAssertFalse(repositorySpy.isUpdateCalled, "it should not be able to update contact")
     }
 
-    func testContactDetailViewModel_givenAllFields_OnSave_ItShouldBeAbleToUpdate() {
+    func testContactDetailViewModel_givenAllFields_onSave_itShouldBeAbleToUpdate() {
         let contact = Contact(id: "voldemort1", firstName: "tom", lastName: "riddle", email: "tom@hogwarts.com", phone: "1234")
         let sut = ContactDetailViewModel(contact: contact, repository: repositorySpy)
 
@@ -68,7 +68,7 @@ class ContactDetailViewModelTests: XCTestCase {
         var isUpdateCalled = false
 
         func getAllContacts() -> [Contact] {
-            isUpdateCalled = true
+            isGetAllContactsCalled = true
             return []
         }
 
