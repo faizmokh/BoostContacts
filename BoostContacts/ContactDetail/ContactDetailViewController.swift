@@ -154,6 +154,13 @@ class ContactDetailViewController: UIViewController {
         self.presentationController?.delegate?.presentationControllerDidDismiss?(self.presentationController!)
         self.dismiss(animated: true, completion: nil)
     }
+
+    private func setup(cell: ContactFormCell, title: String, value: String?, tag: Int) {
+        cell.setup(title: title, value: value)
+        cell.formTextField.delegate = self
+        cell.formTextField.returnKeyType = .next
+        cell.formTextField.tag = tag
+    }
 }
 
 // MARK: - ContactDetailViewController Data Sources
@@ -180,18 +187,12 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .mainInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "First Name", value: viewModel.firstName)
-                cell.formTextField.delegate = self
-                cell.formTextField.returnKeyType = .next
-                cell.formTextField.tag = 0
+                setup(cell: cell, title: "First Name", value: viewModel.firstName, tag: 0)
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.firstName = text
                 }
             } else {
-                cell.setup(title: "Last Name", value: viewModel.lastName)
-                cell.formTextField.delegate = self
-                cell.formTextField.returnKeyType = .next
-                cell.formTextField.tag = 1
+                setup(cell: cell, title: "Last Name", value: viewModel.lastName, tag: 1)
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.lastName = text
                 }
@@ -200,18 +201,14 @@ extension ContactDetailViewController: UITableViewDataSource {
         case .subInfo:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ContactFormCell", for: indexPath) as! ContactFormCell
             if indexPath.row == 0 {
-                cell.setup(title: "Email", value: viewModel.email)
-                cell.formTextField.delegate = self
-                cell.formTextField.returnKeyType = .next
-                cell.formTextField.tag = 2
+                setup(cell: cell, title: "Email", value: viewModel.email, tag: 2)
+                cell.formTextField.keyboardType = .emailAddress
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.email = text
                 }
             } else {
-                cell.setup(title: "Phone", value: viewModel.phone)
-                cell.formTextField.delegate = self
-                cell.formTextField.returnKeyType = .next
-                cell.formTextField.tag = 3
+                setup(cell: cell, title: "Phone", value: viewModel.phone, tag: 3)
+                cell.formTextField.keyboardType = .namePhonePad
                 cell.valueCompletion = { [weak self] text in
                     self?.viewModel.phone = text
                 }
