@@ -103,27 +103,27 @@ class ContactDetailViewController: UIViewController {
 
     private func setupBindings() {
         viewModel.$contact
-            .receive(on: RunLoop.main)
-            .sink { contact in
-                self.tableView.reloadData()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] contact in
+                self?.tableView.reloadData()
             }
             .store(in: &bindings)
         viewModel.$isShowAlert
-            .receive(on: RunLoop.main)
-            .sink { isAlertShown in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAlertShown in
                 if isAlertShown {
-                    self.showAlert()
+                    self?.showAlert()
                 }
             }
             .store(in: &bindings)
         viewModel.$isDismissScreen
-            .receive(on: RunLoop.main)
-            .sink { isDismissed in
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isDismissed in
                 if isDismissed {
-                    self.dismissScreen()
+                    self?.dismissScreen()
                 }
-        }
-        .store(in: &bindings)
+            }
+            .store(in: &bindings)
     }
 
     @objc private func adjustForKeyboard(notification: Notification) {
