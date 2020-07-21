@@ -12,7 +12,7 @@ class ContactDetailViewModel: ObservableObject {
 
     // MARK: - Properties
 
-    @Published var contact: Contact
+    @Published var contact: Contact?
 
     @Published var isShowAlert: Bool = false
     @Published var isDismissScreen: Bool = false
@@ -26,14 +26,14 @@ class ContactDetailViewModel: ObservableObject {
 
     // MARK: - Init
 
-    init(contact: Contact,
+    init(contact: Contact? = nil,
          repository: ContactsRepositorable = ContactsRepository()) {
         self.contact = contact
         self.repository = repository
-        self.firstName = contact.firstName
-        self.lastName = contact.lastName
-        self.email = contact.email
-        self.phone = contact.phone
+        self.firstName = contact?.firstName
+        self.lastName = contact?.lastName
+        self.email = contact?.email
+        self.phone = contact?.phone
     }
 
     func save() {
@@ -42,7 +42,7 @@ class ContactDetailViewModel: ObservableObject {
             self.isShowAlert = true
             return
         }
-        let newContact = Contact(id: contact.id, firstName: firstName, lastName: lastName, email: email, phone: phone)
+        let newContact = Contact(id: contact?.id, firstName: firstName, lastName: lastName, email: email, phone: phone)
         repository.update(contact: newContact)
         isDismissScreen = true
     }
