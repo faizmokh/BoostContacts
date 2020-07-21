@@ -29,6 +29,7 @@
 		98A3ECBC24C4804F000CC534 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A3ECBB24C4804F000CC534 /* Contact.swift */; };
 		98A3ECBE24C480EC000CC534 /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A3ECBD24C480EC000CC534 /* ContactTests.swift */; };
 		98A3ECC024C48684000CC534 /* ContactsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A3ECBF24C48684000CC534 /* ContactsRepository.swift */; };
+		98C99FB424C7225E007674DA /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C99FB324C7225E007674DA /* UIColor+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		98A3ECBB24C4804F000CC534 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		98A3ECBD24C480EC000CC534 /* ContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
 		98A3ECBF24C48684000CC534 /* ContactsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsRepository.swift; sourceTree = "<group>"; };
+		98C99FB324C7225E007674DA /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,10 +184,11 @@
 		98630D0324C2F4FE00957059 /* BoostContacts */ = {
 			isa = PBXGroup;
 			children = (
-				98A3ECBA24C4801C000CC534 /* Model */,
-				98A3ECC124C488B1000CC534 /* Repository */,
 				98630D3424C2F7DB00957059 /* ContactList */,
 				9838C3D324C3413E00311621 /* ContactDetail */,
+				98A3ECBA24C4801C000CC534 /* Model */,
+				98A3ECC124C488B1000CC534 /* Repository */,
+				98C99FB224C7223B007674DA /* Extensions */,
 				98630D0424C2F4FE00957059 /* AppDelegate.swift */,
 				98630D0624C2F4FE00957059 /* SceneDelegate.swift */,
 				98A3ECB724C47E39000CC534 /* Resources */,
@@ -256,6 +259,14 @@
 				98A3ECBF24C48684000CC534 /* ContactsRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		98C99FB224C7223B007674DA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				98C99FB324C7225E007674DA /* UIColor+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,6 +416,7 @@
 				9838C3E624C348C000311621 /* ContactFormCell.swift in Sources */,
 				98630D0724C2F4FE00957059 /* SceneDelegate.swift in Sources */,
 				9838C3E224C3489D00311621 /* ContactPhotoCell.swift in Sources */,
+				98C99FB424C7225E007674DA /* UIColor+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,7 +28,7 @@ class ContactListViewController: UIViewController {
             barButtonSystemItem: .add,
             target: self,
             action: #selector(didTappedAddButton))
-        button.tintColor = .systemOrange
+        button.tintColor = .primary
         return button
     }()
 

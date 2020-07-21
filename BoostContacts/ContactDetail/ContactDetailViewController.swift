@@ -34,7 +34,7 @@ class ContactDetailViewController: UIViewController {
             style: .plain,
             target: self,
             action: #selector(didTappedCancelButton))
-        button.tintColor = .systemOrange
+        button.tintColor = .primary
         return button
     }()
 
@@ -44,7 +44,7 @@ class ContactDetailViewController: UIViewController {
             style: .done,
             target: self,
             action: #selector(didTappedSaveButton))
-        button.tintColor = .systemOrange
+        button.tintColor = .primary
         return button
     }()
 

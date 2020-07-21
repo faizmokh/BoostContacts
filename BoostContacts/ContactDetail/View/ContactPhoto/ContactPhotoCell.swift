@@ -13,7 +13,7 @@ class ContactPhotoCell: UITableViewCell {
     @IBOutlet var profileImageView: UIImageView! {
         didSet {
             profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
-            profileImageView.backgroundColor = .systemOrange
+            profileImageView.backgroundColor = .primary
             profileImageView.clipsToBounds = true
         }
     }
