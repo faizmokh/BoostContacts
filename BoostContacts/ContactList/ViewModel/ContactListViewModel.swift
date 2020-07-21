@@ -11,14 +11,12 @@ import Combine
 
 class ContactListViewModel: ObservableObject {
 
-    @Published var contacts: [Contact]
+    @Published var contacts: [Contact] = []
 
     let repository: ContactsRepositorable
 
-    init(repository: ContactsRepositorable = ContactsRepository(),
-         contacts: [Contact] = []) {
+    init(repository: ContactsRepositorable = ContactsRepository()) {
         self.repository = repository
-        self.contacts = contacts
     }
 
     func getAllContacts() {
